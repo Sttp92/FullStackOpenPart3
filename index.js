@@ -1,5 +1,6 @@
 const express = require('express')
 const morgan = require('morgan')
+const cors = require('cors')
 
 morgan.token('reqInfo', function reqInfo (req) {
   const reqInfo = JSON.stringify(req.body)
@@ -14,6 +15,7 @@ const app = express()
 
 app.use(express.json())
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :reqInfo'))
+app.use(cors())
 
 let persons = [
     { 
@@ -40,6 +42,11 @@ let persons = [
         "id": 5,
         "name": "John Cena", 
         "number": "39-11-8352788"
+    },
+    { 
+        "id": 6,
+        "name": "Koko Loko", 
+        "number": "39-11-0000000"
     }
 ]
 
@@ -107,7 +114,7 @@ app.post('/api/persons', (request, response) => {
   response.json(person)
 })
 
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
