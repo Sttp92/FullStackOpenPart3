@@ -6,10 +6,10 @@ const Person = require('./models/person')
 
 morgan.token('reqInfo', function reqInfo (req) {
   const reqInfo = JSON.stringify(req.body)
-  if (reqInfo !== "{}") {
+  if (reqInfo !== '{}') {
     return reqInfo
   } else {
-    return "- No body request"
+    return '- No body request'
   }
 })
 
@@ -49,14 +49,14 @@ app.get('/info', (request, response) => {
 
 app.get('/api/persons/:id', (request, response, next) => {
   Person.findById(request.params.id)
-  .then(person => {
-    if (person) {
-      response.json(person)
-    } else {
-      response.status(404).end()
-    }
-  })
-  .catch(error => next(error))
+    .then(person => {
+      if (person) {
+        response.json(person)
+      } else {
+        response.status(404).end()
+      }
+    })
+    .catch(error => next(error))
 })
 
 app.delete('/api/persons/:id', (request, response, next) => {
@@ -78,7 +78,7 @@ app.post('/api/persons', (request, response, next) => {
   person.save().then(savedPerson => {
     response.json(savedPerson)
   })
-  .catch(error => next(error))
+    .catch(error => next(error))
 })
 
 app.put('/api/persons/:id', (request, response, next) => {
